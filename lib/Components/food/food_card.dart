@@ -12,7 +12,7 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // double screenWidth = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
-    double sizeFilterIcons = 25;
+    double sizeFilterIcons = 35;
     Container? mealTypeBadge() {
       String badgePath = "";
       if (foodData.keywords.contains("Vegan")) {
@@ -106,13 +106,13 @@ class FoodCard extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.0,
-                        color: Color.fromARGB(255, 56, 42, 1),
+                        fontSize: 15.0,
+                        color: Color.fromARGB(255, 77, 58, 3),
                       ),
                     ),
                     const Divider(
                       thickness: 0.5,
-                      color: Colors.black,
+                      color: Color.fromARGB(255, 75, 57, 3),
                     ),
                     Text(
                       foodData.description,
@@ -123,7 +123,7 @@ class FoodCard extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         fontSize: 12.0,
                         fontStyle: FontStyle.italic,
-                        color: Color.fromARGB(255, 32, 24, 1),
+                        color: Color.fromARGB(255, 24, 2, 43),
                       ),
                     ),
                   ],

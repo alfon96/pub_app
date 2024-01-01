@@ -92,27 +92,56 @@ class _FoodState extends ConsumerState<Food> {
           padding: EdgeInsets.only(top: 7.0, bottom: 10.0),
           child: Divider(),
         ),
-        ResponsiveGridList(
-          rowMainAxisAlignment: MainAxisAlignment.center,
-          horizontalGridSpacing: 10, // Horizontal space between grid items
-          verticalGridSpacing: 5, // Vertical space between grid items
-          horizontalGridMargin: 0, // Horizontal space around the grid
-          verticalGridMargin: 10, // Vertical space around the grid
-          minItemWidth:
-              160, // The minimum item width (can be smaller, if the layout constraints are smaller)
-          minItemsPerRow:
-              1, // The minimum items to show in a single row. Takes precedence over minItemWidth
-          maxItemsPerRow:
-              5, // The maximum items to show in a single row. Can be useful on large screens
-          listViewBuilderOptions: ListViewBuilderOptions(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-          ), // Options that are getting passed to the ListView.builder() function
+        mealsCards.isEmpty
+            ? const Padding(
+                padding: EdgeInsets.only(top: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Sorry!',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color.fromARGB(255, 56, 42, 1),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      " We don't have a meal for this preference yet.",
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color.fromARGB(255, 56, 42, 1),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : ResponsiveGridList(
+                rowMainAxisAlignment: MainAxisAlignment.center,
+                horizontalGridSpacing:
+                    10, // Horizontal space between grid items
+                verticalGridSpacing: 5, // Vertical space between grid items
+                horizontalGridMargin: 0, // Horizontal space around the grid
+                verticalGridMargin: 10, // Vertical space around the grid
+                minItemWidth:
+                    160, // The minimum item width (can be smaller, if the layout constraints are smaller)
+                minItemsPerRow:
+                    1, // The minimum items to show in a single row. Takes precedence over minItemWidth
+                maxItemsPerRow:
+                    5, // The maximum items to show in a single row. Can be useful on large screens
+                listViewBuilderOptions: ListViewBuilderOptions(
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                ), // Options that are getting passed to the ListView.builder() function
 
-          children: [
-            ...mealsCards, // The list of w
-          ], // The list of widgets in the list
-        ),
+                children: [
+                  ...mealsCards, // The list of w
+                ], // The list of widgets in the list
+              ),
       ],
     );
     // Column(
