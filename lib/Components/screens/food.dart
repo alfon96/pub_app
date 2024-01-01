@@ -47,12 +47,12 @@ class _FoodState extends ConsumerState<Food> {
   @override
   Widget build(BuildContext context) {
     // State for Filters checkboxes
-    final menu = ref.watch(foodProvider);
+    final menu = ref.watch(foodProvider).filteredMenu;
     double screenWidth = MediaQuery.of(context).size.width;
     List<FoodCard> mealsCards = [];
     List<CheckboxFood> filterCheckboxes = [];
 
-    for (var meal in menuItems) {
+    for (var meal in menu) {
       mealsCards.add(FoodCard(foodData: meal));
     }
     for (var badge in foodFilters) {
@@ -61,29 +61,36 @@ class _FoodState extends ConsumerState<Food> {
 
     // double screenheight = MediaQuery.of(context).size.height;
     return ListView(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       children: <Widget>[
+        const SizedBox(height: 10),
         const FoodHeading(),
+        const SizedBox(height: 15),
         ResponsiveGridList(
-          rowMainAxisAlignment: MainAxisAlignment.center,
-          horizontalGridSpacing: 10, // Horizontal space between grid items
-          verticalGridSpacing: 5, // Vertical space between grid items
+          horizontalGridSpacing: 0, // Horizontal space between grid items
+          verticalGridSpacing: 0, // Vertical space between grid items
           horizontalGridMargin: 0, // Horizontal space around the grid
-          verticalGridMargin: 10, // Vertical space around the grid
+          verticalGridMargin: 0, // Vertical space around the grid
+
           minItemWidth:
-              160, // The minimum item width (can be smaller, if the layout constraints are smaller)
+              140, // The minimum item width (can be smaller, if the layout constraints are smaller)
           minItemsPerRow:
-              1, // The minimum items to show in a single row. Takes precedence over minItemWidth
+              2, // The minimum items to show in a single row. Takes precedence over minItemWidth
           maxItemsPerRow:
               5, // The maximum items to show in a single row. Can be useful on large screens
           listViewBuilderOptions: ListViewBuilderOptions(
             physics: const ClampingScrollPhysics(),
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
           ), // Options that are getting passed to the ListView.builder() function
 
           children: [
             ...filterCheckboxes, // The list of w
           ], // The list of widgets in the list
+        ),
+        const Padding(
+          padding: EdgeInsets.only(top: 7.0, bottom: 10.0),
+          child: Divider(),
         ),
         ResponsiveGridList(
           rowMainAxisAlignment: MainAxisAlignment.center,

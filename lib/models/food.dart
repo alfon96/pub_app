@@ -29,10 +29,12 @@ class FoodFilterBadge {
 class FoodProviderData {
   List<FoodData> completeMenu;
   List<FoodData> filteredMenu;
+  List<String> activeFilters;
 
   FoodProviderData({
     required this.completeMenu,
     required this.filteredMenu,
+    required this.activeFilters,
   });
 }
 
