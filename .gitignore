@@ -50,3 +50,5 @@ build/
 linux/
 macos/
 windows/
+*.lock
+pubspec.lock
