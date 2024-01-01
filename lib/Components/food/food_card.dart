@@ -1,8 +1,6 @@
 import 'package:app/models/food.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FoodCard extends StatelessWidget {
@@ -11,7 +9,7 @@ class FoodCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenWidth = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
     double sizeFilterIcons = 25;
     Container? mealTypeBadge() {
@@ -113,7 +111,7 @@ class FoodCard extends StatelessWidget {
                         color: Color.fromARGB(255, 56, 42, 1),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 0.5,
                       color: Colors.black,
                     ),
