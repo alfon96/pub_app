@@ -16,8 +16,60 @@ class FoodData {
   });
 }
 
-const String veganBadge = "assets/food_icons/vegan.svg";
-const String vegetarianBadge = "assets/food_icons/vegetarian.svg";
-const String fishBadge = "assets/food_icons/fish.svg";
-const String meatBadge = "assets/food_icons/meat.svg";
-const String foodNotFoundPlaceholderImage = "assets/food_icons/404.svg";
+class FoodFilterBadge {
+  String name;
+  String iconPath;
+
+  FoodFilterBadge({
+    required this.name,
+    required this.iconPath,
+  });
+}
+
+class FoodProviderData {
+  List<FoodData> completeMenu;
+  List<FoodData> filteredMenu;
+
+  FoodProviderData({
+    required this.completeMenu,
+    required this.filteredMenu,
+  });
+}
+
+FoodFilterBadge veganBadge = FoodFilterBadge(
+  name: 'Vegan',
+  iconPath: "assets/food_icons/vegan.svg",
+);
+FoodFilterBadge vegetarianBadge = FoodFilterBadge(
+  name: 'Vegetarian',
+  iconPath: "assets/food_icons/vegetarian.svg",
+);
+FoodFilterBadge fishBadge = FoodFilterBadge(
+  name: 'Fish',
+  iconPath: "assets/food_icons/fish.svg",
+);
+FoodFilterBadge meatBadge = FoodFilterBadge(
+  name: 'Meat',
+  iconPath: "assets/food_icons/meat.svg",
+);
+FoodFilterBadge noGlutenBadge = FoodFilterBadge(
+  name: 'No Gluten',
+  iconPath: "assets/food_icons/no_gluten.svg",
+);
+FoodFilterBadge noLactoseBadge = FoodFilterBadge(
+  name: 'No Lactose',
+  iconPath: "assets/food_icons/no_lactose.svg",
+);
+FoodFilterBadge foodNotFoundPlaceholderImage = FoodFilterBadge(
+  name: 'NotFound',
+  iconPath: "assets/food_icons/404.svg",
+);
+
+List<FoodFilterBadge> foodFilters = [
+  veganBadge,
+  vegetarianBadge,
+  fishBadge,
+  meatBadge,
+  noGlutenBadge,
+  noLactoseBadge
+];

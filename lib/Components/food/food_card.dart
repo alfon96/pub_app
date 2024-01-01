@@ -15,13 +15,13 @@ class FoodCard extends StatelessWidget {
     Container? mealTypeBadge() {
       String badgePath = "";
       if (foodData.keywords.contains("Vegan")) {
-        badgePath = veganBadge;
+        badgePath = veganBadge.iconPath;
       } else if (foodData.keywords.contains("Vegetarian")) {
-        badgePath = vegetarianBadge;
+        badgePath = vegetarianBadge.iconPath;
       } else if (foodData.keywords.contains("Fish")) {
-        badgePath = fishBadge;
+        badgePath = fishBadge.iconPath;
       } else if (foodData.keywords.contains("Meat")) {
-        badgePath = meatBadge;
+        badgePath = meatBadge.iconPath;
       }
 
       if (badgePath != '') {
@@ -69,7 +69,7 @@ class FoodCard extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SvgPicture.asset(
-                                foodNotFoundPlaceholderImage,
+                                foodNotFoundPlaceholderImage.iconPath,
                                 fit: BoxFit.scaleDown,
                               ),
                             ),

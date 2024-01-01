@@ -1,11 +1,15 @@
+import 'package:app/Components/filters/checkbox_food.dart';
 import 'package:app/Components/food/food_card.dart';
 import 'package:app/data/food_data.dart';
+import 'package:app/models/food.dart';
 import 'package:app/providers/food.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:responsive_grid_list/responsive_grid_list.dart';
 
 // Assicurati che il widget sia uno StatefulWidget se vuoi utilizzare initState.
 class Food extends ConsumerStatefulWidget {
@@ -22,7 +26,6 @@ class _FoodState extends ConsumerState<Food> {
     Future.delayed(Duration.zero, () {
       fetchMeals();
     });
-    // Esegui la tua funzione di inizializzazione qui
   }
 
   Future<void> fetchMeals() async {
@@ -42,103 +45,88 @@ class _FoodState extends ConsumerState<Food> {
 
   @override
   Widget build(BuildContext context) {
-    bool isChecked = false;
-    List filters = [];
+    // State for Filters checkboxes
     final menu = ref.watch(foodProvider);
     double screenWidth = MediaQuery.of(context).size.width;
-    int colNumber = screenWidth > 1000
-        ? 5
-        : screenWidth > 800
-            ? 4
-            : screenWidth > 590
-                ? 3
-                : screenWidth > 315
-                    ? 2
-                    : 1;
-    var size = MediaQuery.of(context).size;
+    List<FoodCard> mealsCards = [];
+    List<CheckboxFood> filterCheckboxes = [];
 
-    /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height -
-            kToolbarHeight -
-            (size.height - kToolbarHeight) * 1 / 5 -
-            8 +
-            2 * 10) *
-        3 /
-        5;
-
-    print(itemHeight);
-
-    final double itemWidth = (size.width - 16) / colNumber;
-
-    double aspectRatio = screenWidth > 1000
-        ? (itemWidth / itemHeight)
-        : screenWidth > 730
-            ? (itemWidth / itemHeight)
-            : screenWidth > 590
-                ? (itemWidth / itemHeight)
-                : (itemWidth / itemHeight);
-    void handleFilters(bool? filter) {
-      if (filter != null) {
-        setState(() {
-          if (filters.contains(filter)) {
-            filters.remove(filter);
-          } else {
-            filters.add(filter);
-          }
-        });
-      }
+    for (var meal in menuItems) {
+      mealsCards.add(FoodCard(foodData: meal));
+    }
+    for (var badge in foodFilters) {
+      filterCheckboxes.add(CheckboxFood(foodBadge: badge));
     }
 
     // double screenheight = MediaQuery.of(context).size.height;
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.only(right: 12.0, left: 12.0, top: 0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Flexible(
-            flex: 1,
-            fit: FlexFit.tight,
-            child: Column(
-              children: [
-                const Text(
-                  'Food',
-                  style: TextStyle(
-                      fontSize: 24.0, color: Color.fromARGB(255, 56, 42, 1)),
-                ),
-                const Text(
-                    'You can use the following filters to match your favourite diet.'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                        value: isChecked,
-                        semanticLabel: 'Vegan',
-                        onChanged: handleFilters)
-                  ],
-                ),
-              ],
+          const SizedBox(height: 10),
+          const Text(
+            'Food',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.w600,
+              color: Color.fromARGB(255, 56, 42, 1),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const Text(
+            'Use filters to match your diet:',
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Color.fromARGB(255, 56, 42, 1),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           Flexible(
-            flex: 4,
-            fit: FlexFit.tight,
-            child: GridView.builder(
-              padding: const EdgeInsets.all(8),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: aspectRatio,
+            flex: 1,
+            child: ResponsiveGridList(
+              rowMainAxisAlignment: MainAxisAlignment.center,
 
-                crossAxisCount: colNumber, // Numero di colonne
-                crossAxisSpacing: 10, // Spaziatura orizzontale tra le cards
-                mainAxisSpacing: 10, // Spaziatura verticale tra le cards
-              ),
-              itemCount: menu.length,
-              itemBuilder: (BuildContext context, int index) {
-                return FoodCard(
-                  foodData: menu[index],
-                );
-              },
+              horizontalGridSpacing: 0, // Horizontal space between grid items
+              verticalGridSpacing: 0, // Vertical space between grid items
+              horizontalGridMargin: 0, // Horizontal space around the grid
+              verticalGridMargin: 0, // Vertical space around the grid
+              minItemWidth:
+                  80, // The minimum item width (can be smaller, if the layout constraints are smaller)
+              minItemsPerRow:
+                  2, // The minimum items to show in a single row. Takes precedence over minItemWidth
+              maxItemsPerRow: filterCheckboxes
+                  .length, // The maximum items to show in a single row. Can be useful on large screens
+              listViewBuilderOptions: ListViewBuilderOptions(
+                shrinkWrap: true,
+              ), // Options that are getting passed to the ListView.builder() function
+
+              children: filterCheckboxes, // The list of widgets in the list
             ),
-          )
+          ),
+          Flexible(
+            flex: 10,
+            child: ResponsiveGridList(
+              rowMainAxisAlignment: MainAxisAlignment.center,
+              horizontalGridSpacing: 10, // Horizontal space between grid items
+              verticalGridSpacing: 5, // Vertical space between grid items
+              horizontalGridMargin: 0, // Horizontal space around the grid
+              verticalGridMargin: 10, // Vertical space around the grid
+              minItemWidth:
+                  160, // The minimum item width (can be smaller, if the layout constraints are smaller)
+              minItemsPerRow:
+                  1, // The minimum items to show in a single row. Takes precedence over minItemWidth
+              maxItemsPerRow:
+                  5, // The maximum items to show in a single row. Can be useful on large screens
+              listViewBuilderOptions:
+                  ListViewBuilderOptions(), // Options that are getting passed to the ListView.builder() function
+
+              children: mealsCards, // The list of widgets in the list
+            ),
+          ),
         ],
       ),
     );

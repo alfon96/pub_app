@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^2.0.9
   http: ^1.1.2
   cached_network_image: ^3.3.0
+  responsive_grid: ^2.4.4
+  responsive_grid_list: ^1.4.0
 
 dev_dependencies:
   flutter_test:
