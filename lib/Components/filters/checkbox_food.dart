@@ -31,10 +31,11 @@ class _CheckboxFoodState extends State<CheckboxFood> {
     return ResponsiveGridRow(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        ResponsiveGridCol(xs: 2, child: const SizedBox(width: 10)),
         ResponsiveGridCol(
-          xs: 3,
+          xs: 2,
           child: Checkbox(
-            side: BorderSide(color: const Color.fromARGB(255, 109, 83, 4)),
+            side: const BorderSide(color: Color.fromARGB(255, 109, 83, 4)),
             shape: const CircleBorder(),
             value: isChecked,
             semanticLabel: widget.foodBadge.name,
@@ -42,7 +43,7 @@ class _CheckboxFoodState extends State<CheckboxFood> {
           ),
         ),
         ResponsiveGridCol(
-          xs: 4,
+          xs: 2,
           child: SvgPicture.asset(
             widget.foodBadge.iconPath,
             height: 25,
@@ -51,6 +52,7 @@ class _CheckboxFoodState extends State<CheckboxFood> {
         ResponsiveGridCol(
           xs: 5,
           child: Text(
+            textAlign: TextAlign.center,
             widget.foodBadge.name,
             style: const TextStyle(
               fontSize: 12.0,
@@ -60,6 +62,7 @@ class _CheckboxFoodState extends State<CheckboxFood> {
             ),
           ),
         ),
+        ResponsiveGridCol(xs: 2, child: const SizedBox(width: 10)),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:app/models/food.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 class FoodCard extends StatelessWidget {
   const FoodCard({super.key, required this.foodData});
@@ -39,11 +40,10 @@ class FoodCard extends StatelessWidget {
 
     return Card(
         color: Colors.amber,
-        child: Column(
+        child: ResponsiveGridRow(
           children: [
-            Flexible(
-              flex: 3,
-              fit: FlexFit.tight,
+            ResponsiveGridCol(
+              xs: 12,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10.0),
@@ -54,8 +54,8 @@ class FoodCard extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     children: [
                       SizedBox(
+                        height: MediaQuery.sizeOf(context).height / 5,
                         width: double.infinity,
-                        height: double.infinity,
                         child: CachedNetworkImage(
                           imageUrl: foodData.imagePreview,
                           placeholder: (context, url) => const SizedBox(
@@ -93,9 +93,8 @@ class FoodCard extends StatelessWidget {
                     ]),
               ),
             ),
-            Flexible(
-              fit: FlexFit.loose,
-              flex: 2,
+            ResponsiveGridCol(
+              xs: 12,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(

@@ -71,6 +71,8 @@ flutter:
     - assets\food_icons\vegetarian.svg
     - assets\food_icons\fish.svg
     - assets\food_icons\meat.svg
+    - assets\food_icons\no_gluten.svg
+    - assets\food_icons\no_lactose.svg
     - assets\food_icons\404.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
