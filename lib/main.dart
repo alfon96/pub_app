@@ -15,11 +15,12 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentScreen = ref.watch(screensProvider);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PubApp',
       home: Scaffold(
         appBar: const CustomAppBar(),
         body: currentScreen.screen,
       ),
+      theme: ThemeData(fontFamily: 'Raleway'),
     );
   }
 }

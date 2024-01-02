@@ -74,6 +74,16 @@ flutter:
     - assets\food_icons\no_gluten.svg
     - assets\food_icons\no_lactose.svg
     - assets\food_icons\404.svg
+    - assets\general_icons\add.svg
+    - assets\cart_icons\add.svg
+    - assets\cart_icons\cart.svg
+    - assets\cart_icons\close.svg
+    - assets\cart_icons\check.svg
+    - assets\cart_icons\remove.svg
+    - assets\cart_icons\chef.svg
+    - assets\general_icons\remove.svg
+    - assets\general_icons\left.svg
+    - assets\general_icons\right.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -86,17 +96,23 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    # - family: Schyler
+    #   fonts:
+    #     - asset: fonts/Schyler-Regular.ttf
+    #     - asset: fonts/Schyler-Italic.ttf
+    #       style: italic
+    - family: DM_Serif_Text
+      fonts:
+        - asset: assets\fonts\DM_Serif_Text\DMSerifText-Italic.ttf
+        - asset: assets\fonts\DM_Serif_Text\DMSerifText-Regular.ttf
+    - family: Raleway
+      fonts:
+        - asset: assets\fonts\Raleway\Raleway-VariableFont_wght.ttf
+        - asset: assets\fonts\Raleway\Raleway-Regular.ttf
+        - asset: assets\fonts\Raleway\Raleway-Bold.ttf
+        - asset: assets\fonts\Raleway\Raleway-SemiBold.ttf
+        - asset: assets\fonts\Raleway\Raleway-Regular.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

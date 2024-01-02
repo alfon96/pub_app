@@ -1,6 +1,7 @@
 import 'package:app/models/food.dart';
 
 FoodData pizza = FoodData(
+  id: "id_0",
   name: "Pizza Margherita",
   price: 7.99,
   description: "Classic Italian pizza with fresh mozzarella and basil.",
@@ -11,6 +12,7 @@ FoodData pizza = FoodData(
 );
 
 FoodData burger = FoodData(
+  id: "id_1",
   name: "Classic Burger",
   price: 5.99,
   description: "Juicy beef burger with lettuce, tomato and cheese.",
@@ -21,6 +23,7 @@ FoodData burger = FoodData(
 );
 
 FoodData sushi = FoodData(
+  id: "id_2",
   name: "Salmon Nigiri",
   price: 12.99,
   description:
@@ -32,6 +35,7 @@ FoodData sushi = FoodData(
 );
 
 FoodData salad = FoodData(
+  id: "id_3",
   name: "Caesar Salad",
   price: 8.99,
   description:
@@ -43,6 +47,7 @@ FoodData salad = FoodData(
 );
 
 FoodData pasta = FoodData(
+  id: "id_4",
   name: "Spaghetti Carbonara",
   price: 10.99,
   description:

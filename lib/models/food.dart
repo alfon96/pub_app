@@ -1,4 +1,5 @@
 class FoodData {
+  String id;
   String name;
   double price;
   String description;
@@ -7,6 +8,7 @@ class FoodData {
   List<String> images;
 
   FoodData({
+    required this.id,
     required this.name,
     required this.price,
     required this.description,
@@ -55,11 +57,11 @@ FoodFilterBadge meatBadge = FoodFilterBadge(
   iconPath: "assets/food_icons/meat.svg",
 );
 FoodFilterBadge noGlutenBadge = FoodFilterBadge(
-  name: 'No Gluten',
+  name: 'Gluten Free',
   iconPath: "assets/food_icons/no_gluten.svg",
 );
 FoodFilterBadge noLactoseBadge = FoodFilterBadge(
-  name: 'No Lactose',
+  name: 'Lactose Free',
   iconPath: "assets/food_icons/no_lactose.svg",
 );
 FoodFilterBadge foodNotFoundPlaceholderImage = FoodFilterBadge(

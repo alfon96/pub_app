@@ -1,12 +1,15 @@
-import 'package:app/Components/filters/checkbox_food.dart';
-import 'package:app/Components/food/food_card.dart';
+import 'package:app/Components/cart/floating_cart_button.dart';
+import 'package:app/Components/config/config.dart';
+import 'package:app/Components/filters/filter_card.dart';
+import 'package:app/Components/filters/responsive_filters_grid.dart';
+import 'package:app/Components/food/food_card/food_404.dart';
+import 'package:app/Components/food/food_card/food_card.dart';
+import 'package:app/Components/food/food_card/responsive_food_cards_grid.dart';
 import 'package:app/Components/food/food_heading.dart';
 import 'package:app/data/food_data.dart';
 import 'package:app/models/food.dart';
 import 'package:app/providers/food.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -48,129 +51,46 @@ class _FoodState extends ConsumerState<Food> {
   Widget build(BuildContext context) {
     // State for Filters checkboxes
     final menu = ref.watch(foodProvider).filteredMenu;
-    double screenWidth = MediaQuery.of(context).size.width;
-    List<FoodCard> mealsCards = [];
-    List<CheckboxFood> filterCheckboxes = [];
+    final activeFilters = ref.watch(foodProvider).activeFilters;
+    List<FilterCard> filterCheckboxes = [];
 
-    for (var meal in menu) {
-      mealsCards.add(FoodCard(foodData: meal));
-    }
+    Widget foodWidget = menu.isEmpty
+        ? Padding(
+            padding: const EdgeInsets.only(top: Config.xl),
+            child: Food404(haveFilters: activeFilters.isEmpty),
+          )
+        : ResponsiveFoodCardsGrid(availableMeals: menu);
+
     for (var badge in foodFilters) {
-      filterCheckboxes.add(CheckboxFood(foodBadge: badge));
+      filterCheckboxes.add(FilterCard(foodBadge: badge));
     }
 
-    // double screenheight = MediaQuery.of(context).size.height;
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      children: <Widget>[
-        const SizedBox(height: 10),
-        const FoodHeading(),
-        const SizedBox(height: 15),
-        ResponsiveGridList(
-          horizontalGridSpacing: 0, // Horizontal space between grid items
-          verticalGridSpacing: 0, // Vertical space between grid items
-          horizontalGridMargin: 0, // Horizontal space around the grid
-          verticalGridMargin: 0, // Vertical space around the grid
-
-          minItemWidth:
-              140, // The minimum item width (can be smaller, if the layout constraints are smaller)
-          minItemsPerRow:
-              2, // The minimum items to show in a single row. Takes precedence over minItemWidth
-          maxItemsPerRow:
-              5, // The maximum items to show in a single row. Can be useful on large screens
-          listViewBuilderOptions: ListViewBuilderOptions(
-            physics: const ClampingScrollPhysics(),
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-          ), // Options that are getting passed to the ListView.builder() function
-
-          children: [
-            ...filterCheckboxes, // The list of w
-          ], // The list of widgets in the list
+    // Page Content to be displayed
+    var children = <Widget>[
+      const SizedBox(height: Config.xl),
+      const FoodHeading(),
+      const SizedBox(height: Config.xl),
+      const ResponsiveFiltersGrid(),
+      const Padding(
+        padding: EdgeInsets.only(top: Config.xl),
+        child: Divider(
+          thickness: Config.dividerThickness,
+          color: Color.fromARGB(255, 71, 8, 126),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 7.0, bottom: 10.0),
-          child: Divider(),
-        ),
-        mealsCards.isEmpty
-            ? const Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Sorry!',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700,
-                        color: Color.fromARGB(255, 56, 42, 1),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Text(
-                      " We don't have a meal for this preference yet.",
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color.fromARGB(255, 56, 42, 1),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            : ResponsiveGridList(
-                rowMainAxisAlignment: MainAxisAlignment.center,
-                horizontalGridSpacing:
-                    10, // Horizontal space between grid items
-                verticalGridSpacing: 5, // Vertical space between grid items
-                horizontalGridMargin: 0, // Horizontal space around the grid
-                verticalGridMargin: 10, // Vertical space around the grid
-                minItemWidth:
-                    160, // The minimum item width (can be smaller, if the layout constraints are smaller)
-                minItemsPerRow:
-                    1, // The minimum items to show in a single row. Takes precedence over minItemWidth
-                maxItemsPerRow:
-                    5, // The maximum items to show in a single row. Can be useful on large screens
-                listViewBuilderOptions: ListViewBuilderOptions(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                ), // Options that are getting passed to the ListView.builder() function
+      ),
+      foodWidget,
+    ];
 
-                children: [
-                  ...mealsCards, // The list of w
-                ], // The list of widgets in the list
-              ),
-      ],
-    );
-    // Column(
-    //   children: [
-    //     const FoodHeading(),
-    //     Expanded(
-    //       child: ResponsiveGridList(
-    //         rowMainAxisAlignment: MainAxisAlignment.center,
-    //         horizontalGridSpacing: 10, // Horizontal space between grid items
-    //         verticalGridSpacing: 5, // Vertical space between grid items
-    //         horizontalGridMargin: 0, // Horizontal space around the grid
-    //         verticalGridMargin: 10, // Vertical space around the grid
-    //         minItemWidth:
-    //             160, // The minimum item width (can be smaller, if the layout constraints are smaller)
-    //         minItemsPerRow:
-    //             1, // The minimum items to show in a single row. Takes precedence over minItemWidth
-    //         maxItemsPerRow:
-    //             5, // The maximum items to show in a single row. Can be useful on large screens
-    //         listViewBuilderOptions: ListViewBuilderOptions(
-    //           physics: const ClampingScrollPhysics(),
-    //         ), // Options that are getting passed to the ListView.builder() function
+    // All Elements of the Page are inside the listView so that the whole page is scrollable,
+    // For exception of the cart button that has to be always visible.
+    return Stack(children: [
+      ListView(
+        padding: const EdgeInsets.symmetric(horizontal: Config.xl),
+        children: children,
+      ),
 
-    //         children: [
-    //           ...filterCheckboxes, // The list of w
-    //           ...mealsCards,
-    //         ], // The list of widgets in the list
-    //       ),
-    //     ),
-    //   ],
-    // ),
+      // Fixed Button Bottom Left Cart Button
+      const FloatingCartButton(),
+    ]);
   }
 }

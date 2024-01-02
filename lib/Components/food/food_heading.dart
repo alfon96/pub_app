@@ -15,9 +15,9 @@ class FoodHeading extends StatelessWidget {
             'Food',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 56, 42, 1),
+              fontSize: 42.0,
+              fontWeight: FontWeight.w900,
+              color: Colors.amber,
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -29,7 +29,7 @@ class FoodHeading extends StatelessWidget {
             maxLines: 2,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 13.0,
+              fontSize: 14.0,
               color: Color.fromARGB(255, 56, 42, 1),
               overflow: TextOverflow.ellipsis,
             ),
