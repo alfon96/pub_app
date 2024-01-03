@@ -1,15 +1,18 @@
 import 'package:app/Components/UI/shaking_wrapper/shaking_wrapper.dart';
 import 'package:app/Components/config/config.dart';
 import 'package:app/models/cart.dart';
+import 'package:app/providers/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FloatingCartButton extends StatelessWidget {
-  const FloatingCartButton({super.key, required this.items});
-  final List<CartItem> items;
+class FloatingCartButton extends ConsumerWidget {
+  const FloatingCartButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<CartItem> items = ref.watch(cartProvider).items;
+
     int getTotalNumberOdItemsInCart() {
       int numItemsInCart = 0;
       for (CartItem item in items) {
@@ -20,8 +23,8 @@ class FloatingCartButton extends StatelessWidget {
     }
 
     return Positioned(
-      bottom: 32.0,
-      right: 16.0,
+      bottom: Config.xl,
+      right: Config.md,
       child: ShakingWrapper(
         child: Stack(clipBehavior: Clip.none, children: [
           FloatingActionButton(

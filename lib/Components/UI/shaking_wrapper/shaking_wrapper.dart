@@ -24,14 +24,19 @@ class _ShakingWrapperState extends State<ShakingWrapper>
   void initState() {
     super.initState();
     _controller = AnimationController(
+      // Must set the controller's value to 0.5 to avoid the widget
+      // starting at the 'begin' position of the animation sequence.
+      // Without this setting, even if the animation is not triggered
+      // in initState, the widget would initially appear rotated to
+      // the 'begin' position.
+      value: 0.5,
       duration: Duration(milliseconds: durationMilliseconds),
       vsync: this,
     );
-
-    startingAnimation();
+    _setupAnimation();
   }
 
-  void startingAnimation() {
+  void _setupAnimation() {
     _animation = TweenSequence<double>([
       TweenSequenceItem(
         tween: Tween<double>(begin: -maxAngle, end: 0),
@@ -41,26 +46,28 @@ class _ShakingWrapperState extends State<ShakingWrapper>
         tween: Tween<double>(begin: 0, end: maxAngle),
         weight: 50,
       ),
-    ]).animate(_controller)
-      ..addStatusListener((status) {
-        if (_shakeCount >= limitShakes) {
-          _controller.stop();
-          _controller.animateTo(0.5,
-              duration:
-                  Duration(milliseconds: (durationMilliseconds ~/ 2).toInt()));
-        } else if (status == AnimationStatus.completed) {
-          _shakeCount++;
-          _controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          _controller.forward();
-        }
-      });
+    ]).animate(_controller);
+  }
 
-    _controller.forward();
+  void _startAnimation() {
+    _animation.addStatusListener((status) {
+      if (_shakeCount >= limitShakes) {
+        _controller.stop();
+        _controller.animateTo(0.5,
+            duration:
+                Duration(milliseconds: (durationMilliseconds ~/ 2).toInt()));
+      } else if (status == AnimationStatus.completed) {
+        _shakeCount++;
+        _controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        _controller.forward();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Chiamata a Shaking Wrapper");
     return AnimatedBuilder(
       animation: _controller,
       child: widget.child,
@@ -79,18 +86,6 @@ class _ShakingWrapperState extends State<ShakingWrapper>
     super.dispose();
   }
 
-  void _setupAnimation() {
-    _controller.dispose();
-
-    _shakeCount = 0;
-    _controller = AnimationController(
-      duration: Duration(milliseconds: durationMilliseconds),
-      vsync: this,
-    );
-
-    startingAnimation();
-  }
-
   @override
   void didUpdateWidget(ShakingWrapper oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -98,6 +93,8 @@ class _ShakingWrapperState extends State<ShakingWrapper>
       // Resetta e riavvia l'animazione se il widget child è cambiato
       _controller.reset();
       _setupAnimation();
+      _startAnimation();
+      _controller.forward();
     }
   }
 }

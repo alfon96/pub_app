@@ -26,7 +26,7 @@ ScreenData beerScreen = ScreenData(
 ScreenData foodScreen = ScreenData(
   screenName: 'Food',
   pathIcon: 'assets/action_icons/food.svg',
-  screen: const Food(),
+  screen: const FoodScreen(),
 );
 
 ScreenData musicScreen = ScreenData(
