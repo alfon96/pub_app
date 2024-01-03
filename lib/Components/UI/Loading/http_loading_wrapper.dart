@@ -34,7 +34,6 @@ class _HttpLoadingWrapperState extends State<HttpLoadingWrapper> {
         widget.informProvider != null ? widget.informProvider!() : null;
       }
     } catch (e) {
-      print(e);
       setState(() {
         httpStatus = HttpStates.exception;
       });

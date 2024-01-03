@@ -67,7 +67,6 @@ class _ShakingWrapperState extends State<ShakingWrapper>
 
   @override
   Widget build(BuildContext context) {
-    print("Chiamata a Shaking Wrapper");
     return AnimatedBuilder(
       animation: _controller,
       child: widget.child,

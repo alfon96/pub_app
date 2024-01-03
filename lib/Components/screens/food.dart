@@ -7,7 +7,7 @@ class FoodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return const Stack(
       children: [
         FoodAssemble(),
         FloatingCartButton(),

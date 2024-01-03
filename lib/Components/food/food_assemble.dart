@@ -1,6 +1,5 @@
 import 'package:app/Components/UI/Loading/http_loading_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:app/Components/cart/floating_cart_button.dart';
 import 'package:app/Components/config/config.dart';
 import 'package:app/Components/filters/filter_card.dart';
 import 'package:app/Components/filters/responsive_filters_grid.dart';
@@ -8,9 +7,7 @@ import 'package:app/Components/food/food_card/food_404.dart';
 import 'package:app/Components/food/food_card/responsive_food_cards_grid.dart';
 import 'package:app/Components/food/food_heading.dart';
 import 'package:app/data/food_data.dart';
-import 'package:app/models/cart.dart';
 import 'package:app/models/food.dart';
-import 'package:app/providers/cart.dart';
 import 'package:app/providers/food.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
