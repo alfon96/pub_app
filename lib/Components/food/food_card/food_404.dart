@@ -22,7 +22,7 @@ class Food404 extends StatelessWidget {
         Text(
           haveFilters
               ? " We don't have a meal for this preference yet."
-              : "Couldn't fetch any meals.",
+              : " Couldn't fetch any meals.",
           maxLines: 2,
           style: const TextStyle(
             fontSize: 14.0,

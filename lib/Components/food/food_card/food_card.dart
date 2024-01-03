@@ -1,19 +1,22 @@
 import 'package:app/Components/UI/scrollable_wrapper/scrollable_wrapper.dart';
 import 'package:app/Components/food/food_card/food_card_img.dart';
 import 'package:app/Components/food/food_card/food_card_text.dart';
+import 'package:app/models/cart.dart';
 import 'package:app/models/food.dart';
+import 'package:app/providers/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
-class FoodCard extends StatefulWidget {
+class FoodCard extends ConsumerStatefulWidget {
   const FoodCard({super.key, required this.foodData});
   final FoodData foodData;
 
   @override
-  State<FoodCard> createState() => _FoodCardState();
+  ConsumerState<FoodCard> createState() => _FoodCardState();
 }
 
-class _FoodCardState extends State<FoodCard> {
+class _FoodCardState extends ConsumerState<FoodCard> {
   double dragPosition = 0.0;
   bool showLeftColor = false;
   bool showRightColor = false;
@@ -29,7 +32,19 @@ class _FoodCardState extends State<FoodCard> {
     Color bkgColors = Colors.white;
     double imageHeight = largerDimension / 5;
 
+    CartItem thisItem = CartItem(
+      id: widget.foodData.name,
+      price: widget.foodData.price,
+      quantity: 1,
+    );
+
     return ScrollableWrapper(
+      onLeftDrag: () {
+        ref.read(cartProvider.notifier).removeItem(thisItem);
+      },
+      onRightDrag: () {
+        ref.read(cartProvider.notifier).addItem(thisItem);
+      },
       child: Card(
         // key: Key(widget.foodData.id),
         elevation: 5,

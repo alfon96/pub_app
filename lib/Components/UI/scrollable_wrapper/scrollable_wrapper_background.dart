@@ -28,7 +28,7 @@ class ScrollableWrapperBackground extends StatelessWidget {
       child: Opacity(
         opacity: (dragPosition / scrollLimit).abs(),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(Config.cardBorderRadius),
               bottomRight: Radius.circular(Config.cardBorderRadius),

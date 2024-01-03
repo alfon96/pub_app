@@ -3,7 +3,15 @@ import 'package:app/Components/config/shared_functions.dart';
 import 'package:flutter/material.dart';
 
 class ScrollableWrapper extends StatefulWidget {
-  const ScrollableWrapper({super.key, required this.child});
+  const ScrollableWrapper({
+    super.key,
+    required this.child,
+    required this.onLeftDrag,
+    required this.onRightDrag,
+  });
+
+  final Function onLeftDrag;
+  final Function onRightDrag;
   final Widget child;
   @override
   State<ScrollableWrapper> createState() => _ScrollableWrapperState();
@@ -28,11 +36,11 @@ class _ScrollableWrapperState extends State<ScrollableWrapper> {
     bool leftColor = false; // Inizializza a false
 
     if (dragPosition >= scrollLimit) {
-      message = "Aggiunto al carrello";
       rightColor = true;
+      widget.onRightDrag();
     } else if (dragPosition <= -scrollLimit) {
-      message = "Rimosso dal carrello";
       leftColor = true;
+      widget.onLeftDrag();
     }
 
     if (message != "") {

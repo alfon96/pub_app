@@ -3,17 +3,16 @@ import 'package:app/Components/config/config.dart';
 import 'package:app/Components/filters/filter_card.dart';
 import 'package:app/Components/filters/responsive_filters_grid.dart';
 import 'package:app/Components/food/food_card/food_404.dart';
-import 'package:app/Components/food/food_card/food_card.dart';
 import 'package:app/Components/food/food_card/responsive_food_cards_grid.dart';
 import 'package:app/Components/food/food_heading.dart';
 import 'package:app/data/food_data.dart';
+import 'package:app/models/cart.dart';
 import 'package:app/models/food.dart';
+import 'package:app/providers/cart.dart';
 import 'package:app/providers/food.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:responsive_grid_list/responsive_grid_list.dart';
 
 // Assicurati che il widget sia uno StatefulWidget se vuoi utilizzare initState.
 class Food extends ConsumerStatefulWidget {
@@ -52,12 +51,14 @@ class _FoodState extends ConsumerState<Food> {
     // State for Filters checkboxes
     final menu = ref.watch(foodProvider).filteredMenu;
     final activeFilters = ref.watch(foodProvider).activeFilters;
+    final List<CartItem> items = ref.watch(cartProvider).items;
+
     List<FilterCard> filterCheckboxes = [];
 
     Widget foodWidget = menu.isEmpty
         ? Padding(
             padding: const EdgeInsets.only(top: Config.xl),
-            child: Food404(haveFilters: activeFilters.isEmpty),
+            child: Food404(haveFilters: activeFilters.isNotEmpty),
           )
         : ResponsiveFoodCardsGrid(availableMeals: menu);
 
@@ -90,7 +91,9 @@ class _FoodState extends ConsumerState<Food> {
       ),
 
       // Fixed Button Bottom Left Cart Button
-      const FloatingCartButton(),
+      FloatingCartButton(
+        items: items,
+      ),
     ]);
   }
 }
