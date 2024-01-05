@@ -6,6 +6,7 @@ class FoodData {
   List keywords;
   String imagePreview;
   List<String> images;
+  bool foodBeverage;
 
   FoodData({
     required this.id,
@@ -15,7 +16,33 @@ class FoodData {
     required this.keywords,
     required this.imagePreview,
     required this.images,
+    required this.foodBeverage,
   });
+
+  factory FoodData.fromJson(Map<String, dynamic> json) {
+    return FoodData(
+      id: json['id'],
+      name: json['name'],
+      price: json['price'].toDouble(),
+      description: json['description'],
+      keywords: json['keywords'],
+      imagePreview: json['imgPreview'],
+      images: List<String>.from(json['images']),
+      foodBeverage: json['food_beverage'],
+    );
+  }
+}
+
+class Menu {
+  List<FoodData> items;
+  Menu({required this.items});
+
+  factory Menu.fromJson(Map<String, dynamic> json) {
+    var itemsJson = json['items'] as List;
+    List<FoodData> itemsList =
+        itemsJson.map((itemJson) => FoodData.fromJson(itemJson)).toList();
+    return Menu(items: itemsList);
+  }
 }
 
 class FoodFilterBadge {
@@ -29,8 +56,8 @@ class FoodFilterBadge {
 }
 
 class FoodProviderData {
-  List<FoodData> completeMenu;
-  List<FoodData> filteredMenu;
+  Menu completeMenu;
+  Menu filteredMenu;
   List<String> activeFilters;
 
   FoodProviderData({

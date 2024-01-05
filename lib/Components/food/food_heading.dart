@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
+import 'package:app/Components/config/config.dart';
 
 class FoodHeading extends StatelessWidget {
   const FoodHeading({super.key});
@@ -9,6 +10,7 @@ class FoodHeading extends StatelessWidget {
     return ResponsiveGridRow(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        ResponsiveGridCol(xs: 12, child: const SizedBox(height: Config.xl)),
         ResponsiveGridCol(
           xs: 12,
           child: const Text(
@@ -25,17 +27,19 @@ class FoodHeading extends StatelessWidget {
         ResponsiveGridCol(
           xs: 12,
           child: const Text(
-            'Use filters to match your diet:',
+            'Use filters to match your diet',
             maxLines: 2,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 14.0,
-              color: Color.fromARGB(255, 56, 42, 1),
+              fontWeight: FontWeight.w600,
+              fontSize: 13.0,
+              color: Color.fromARGB(255, 104, 89, 60),
               overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
         ResponsiveGridCol(xs: 12, child: const SizedBox(width: 10)),
+        ResponsiveGridCol(xs: 12, child: const SizedBox(height: Config.xl)),
       ],
     );
   }

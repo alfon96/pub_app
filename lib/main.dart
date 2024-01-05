@@ -14,6 +14,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentScreen = ref.watch(screensProvider);
+
     return MaterialApp(
       title: 'PubApp',
       home: Scaffold(

@@ -8,31 +8,29 @@ class FoodCardImage extends StatelessWidget {
       {super.key, required this.foodData, required this.imageHeight});
   final FoodData foodData;
   final double imageHeight;
-  final double sizeFilterIcons = 35;
+  final double sizeFilterIcons = 25;
+  final double iconSpace = 5;
+  final Color bkgNoImageFound = const Color.fromARGB(255, 247, 243, 255);
 
-  Container? mealTypeBadge() {
-    String badgePath = "";
-    if (foodData.keywords.contains("Vegan")) {
-      badgePath = veganBadge.iconPath;
-    } else if (foodData.keywords.contains("Vegetarian")) {
-      badgePath = vegetarianBadge.iconPath;
-    } else if (foodData.keywords.contains("Fish")) {
-      badgePath = fishBadge.iconPath;
-    } else if (foodData.keywords.contains("Meat")) {
-      badgePath = meatBadge.iconPath;
+  List<Widget> mealTypeBadges() {
+    List<Widget> badges = [];
+
+    for (var filterBadge in foodFilters) {
+      if (foodData.keywords.contains(filterBadge.name)) {
+        badges.add(
+          Container(
+            height: sizeFilterIcons,
+            width: sizeFilterIcons,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: SvgPicture.asset(filterBadge.iconPath),
+          ),
+        );
+      }
     }
 
-    if (badgePath != '') {
-      return Container(
-        height: sizeFilterIcons,
-        width: sizeFilterIcons,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-        ),
-        child: SvgPicture.asset(badgePath),
-      );
-    }
-    return null;
+    return badges; // Restituisce l'elenco dei widget badge
   }
 
   @override
@@ -51,37 +49,40 @@ class FoodCardImage extends StatelessWidget {
               width: double.infinity,
               child: CachedNetworkImage(
                 imageUrl: foodData.imagePreview,
+                fit: BoxFit.cover,
                 placeholder: (context, url) => const SizedBox(
                     height: 30,
                     width: 30,
                     child: Center(
                       child: CircularProgressIndicator(),
                     )),
-                errorWidget: (context, url, error) => Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SvgPicture.asset(
+                errorWidget: (context, url, error) => Container(
+                  color: bkgNoImageFound,
+                  child: Stack(alignment: Alignment.center, children: [
+                    SvgPicture.asset(
                       foodNotFoundPlaceholderImage.iconPath,
                       fit: BoxFit.scaleDown,
                     ),
-                  ),
-                  const Text(
-                    "Sorry! Meal's Image not found.",
-                    style: TextStyle(fontSize: 11.0),
-                  ),
-                ]),
-                fit: BoxFit.cover,
+                    const Text(
+                      "👨‍🍳\nSorry! The image not available. But I'm sure it's delicious ",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 11.5, fontWeight: FontWeight.w600),
+                    ),
+                  ]),
+                ),
               ),
             ),
-            if (mealTypeBadge() != null)
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [mealTypeBadge()!],
-                ),
-              )
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: iconSpace,
+                direction: Axis.horizontal,
+                children: mealTypeBadges(),
+              ),
+            )
           ]),
     );
   }

@@ -4,12 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class FoodNotifier extends StateNotifier<FoodProviderData> {
   FoodNotifier()
       : super(FoodProviderData(
-          completeMenu: [],
-          filteredMenu: [],
+          completeMenu: Menu(items: []),
+          filteredMenu: Menu(items: []),
           activeFilters: [],
         ));
 
-  void loadFood(List<FoodData> foodList) {
+  void loadFood(Menu foodList) {
+    print("Provider called");
     state = FoodProviderData(
       completeMenu: foodList,
       filteredMenu: foodList,
@@ -33,7 +34,7 @@ class FoodNotifier extends StateNotifier<FoodProviderData> {
           filteredMenu: state.completeMenu,
           activeFilters: []);
     } else {
-      for (var meal in state.completeMenu) {
+      for (var meal in state.completeMenu.items) {
         for (var filter in state.activeFilters) {
           if (meal.keywords.contains(filter)) {
             filteredMenu.add(meal);
@@ -43,7 +44,7 @@ class FoodNotifier extends StateNotifier<FoodProviderData> {
 
       state = FoodProviderData(
           completeMenu: state.completeMenu,
-          filteredMenu: filteredMenu,
+          filteredMenu: Menu(items: filteredMenu),
           activeFilters: activeFilters);
     }
   }

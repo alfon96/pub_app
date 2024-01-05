@@ -1,4 +1,4 @@
-import 'package:app/Components/UI/shaking_wrapper/shaking_wrapper.dart';
+import 'package:app/Components/UI/animations/shaking_wrapper.dart';
 import 'package:app/Components/config/config.dart';
 import 'package:app/models/cart.dart';
 import 'package:app/providers/cart.dart';

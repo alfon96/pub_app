@@ -1,4 +1,4 @@
-import 'package:app/Components/filters/filter_card.dart';
+import 'package:app/Components/food/food_filters/filter_card.dart';
 import 'package:flutter/material.dart';
 import 'package:app/models/food.dart';
 

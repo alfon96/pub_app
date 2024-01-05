@@ -55,19 +55,19 @@ class _CheckboxFoodState extends ConsumerState<FilterCard> {
                   height: Config.iconHeight,
                 ),
                 const SizedBox(
-                  height: Config.md,
+                  height: Config.sm,
                 ),
-                SizedBox(
-                  width: 80,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Text(
                     textAlign: TextAlign.center,
                     widget.foodBadge.name,
                     maxLines: 2,
                     style: const TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 43, 32, 1),
-                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.0,
+                      color: Color.fromARGB(255, 20, 0, 31),
+                      overflow: TextOverflow.fade,
                       letterSpacing: .1,
                     ),
                   ),
