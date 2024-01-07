@@ -1,6 +1,5 @@
 import 'package:app/Components/cache/manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app/models/http.dart'; // Assicurati che questo import sia corretto
 

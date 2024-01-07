@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:app/providers/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:idle_detector_wrapper/idle_detector_wrapper.dart';
 
 // Definizione di TranslationAnimator come StatefulWidget
 class TranslationAnimator extends ConsumerStatefulWidget {

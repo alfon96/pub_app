@@ -24,7 +24,7 @@ class ResponsiveFoodCardsGrid extends ConsumerWidget {
       if (i == 0) {
         mealCard = TranslationAnimator(
           displacement: 30,
-          inactiveDelay: 10,
+          inactiveDelay: 25,
           initialDelay: 1600,
           child: mealCard,
         );

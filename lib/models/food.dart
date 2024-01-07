@@ -7,6 +7,9 @@ class FoodData {
   String imagePreview;
   List<String> images;
   bool foodBeverage;
+  double xOffset;
+  double yOffset;
+  double scale;
 
   FoodData({
     required this.id,
@@ -17,6 +20,9 @@ class FoodData {
     required this.imagePreview,
     required this.images,
     required this.foodBeverage,
+    required this.xOffset,
+    required this.yOffset,
+    required this.scale,
   });
 
   factory FoodData.fromJson(Map<String, dynamic> json) {
@@ -29,6 +35,9 @@ class FoodData {
       imagePreview: json['imgPreview'],
       images: List<String>.from(json['images']),
       foodBeverage: json['food_beverage'],
+      xOffset: json['xOffset'],
+      yOffset: json['yOffset'],
+      scale: json['scale'],
     );
   }
 }

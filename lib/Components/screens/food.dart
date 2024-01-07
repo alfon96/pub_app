@@ -3,7 +3,6 @@ import 'package:app/Components/food/food_assemble.dart';
 import 'package:app/providers/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:idle_detector_wrapper/idle_detector_wrapper.dart';
 
 class FoodScreen extends ConsumerWidget {
   const FoodScreen({super.key});

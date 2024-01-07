@@ -1,6 +1,9 @@
 import 'package:app/models/food.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class FoodCardImage extends StatelessWidget {
@@ -8,8 +11,11 @@ class FoodCardImage extends StatelessWidget {
       {super.key, required this.foodData, required this.imageHeight});
   final FoodData foodData;
   final double imageHeight;
+
   final double sizeFilterIcons = 25;
+
   final double iconSpace = 5;
+
   final Color bkgNoImageFound = const Color.fromARGB(255, 247, 243, 255);
 
   List<Widget> mealTypeBadges() {
@@ -45,31 +51,38 @@ class FoodCardImage extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           children: [
             SizedBox(
-              height: imageHeight,
               width: double.infinity,
-              child: CachedNetworkImage(
-                imageUrl: foodData.imagePreview,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    )),
-                errorWidget: (context, url, error) => Container(
-                  color: bkgNoImageFound,
-                  child: Stack(alignment: Alignment.center, children: [
-                    SvgPicture.asset(
-                      foodNotFoundPlaceholderImage.iconPath,
-                      fit: BoxFit.scaleDown,
-                    ),
-                    const Text(
-                      "👨‍🍳\nSorry! The image not available. But I'm sure it's delicious ",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 11.5, fontWeight: FontWeight.w600),
-                    ),
-                  ]),
+              height: imageHeight,
+              child: Transform.scale(
+                scale: foodData.scale,
+                origin: Offset(foodData.xOffset, foodData.yOffset),
+                alignment: Alignment.center,
+                child: CachedNetworkImage(
+                  imageUrl: foodData.imagePreview,
+                  height: 1095,
+                  width: 1277,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      )),
+                  errorWidget: (context, url, error) => Container(
+                    color: bkgNoImageFound,
+                    child: Stack(alignment: Alignment.center, children: [
+                      SvgPicture.asset(
+                        foodNotFoundPlaceholderImage.iconPath,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      const Text(
+                        "👨‍🍳\nSorry! The image not available. But I'm sure it's delicious ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 11.5, fontWeight: FontWeight.w600),
+                      ),
+                    ]),
+                  ),
                 ),
               ),
             ),
